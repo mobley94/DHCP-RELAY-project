@@ -1,0 +1,42 @@
+DHCP relay- This is an important protocol to release Ip addresses to another Lan network.
+
+I created this lab to show how to use DHCP relay and how to create a DHCP server
+
+For this project I used 
+one router
+two switches 
+two access points
+nine endpoint devices. 
+
+One of the endpoint devices will be server to act as a DHCP server.
+
+I am using two switches so we can have two different Lan to work with. This will matter when making our DHCP relay.
+
+I separated my two Lan's into Office A(network Address 192.168.10.0/24) and Office B(network Address 172.168.10.0/24).
+
+There are five endpoint's in office a and four endpoints in office b. With two wireless endpoint devices in each Lan.
+
+The DHCP server is in office A.
+
+For connecting my endpoint devices to the switch I use a straight through cable. I will also use them to connect the switches to the router.
+
+I will configure my two router connections with Ip addresses
+
+I will go into the router and enter configuration mode for g0/0/0 and give it the first ip address 192.168.10.1/24
+  and for g0/0/1 i will input the address of 172.16.10.1/24. Input no shut after configuration
+
+Next I'm gonna configure the DHCP server so I can allocate Ip address to all my host
+You need to go into the DHCP services
+Give the server Ip address [192.168.10.2]
+select what addresses you want to exclude 
+Select the range of address you want to give out
+Name the DHCP pool 
+Give it the default-gateway 192.168.10.1
+
+After this you can go into the cli of the router and configure DHCP relay protocol on int g0/0/0 
+You use the command Ip helper-address [Address of the DHCP router] which is 192.168.10.2 
+
+Now we can go to each endpoint and either enable DHCP protocol or go into to command line. Input ipconfig \renew
+
+
+
